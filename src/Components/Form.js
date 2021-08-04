@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import Formtable from "./Formtable"
 import "./styleform.css"
 import Tableform from "./Tableform"
 
@@ -106,10 +105,7 @@ class Form extends Component {
                 <th>Date Of Birth</th>
               </tr>
             </thead>
-            {/* <tbody>{users.length ? users.map(this.renderUser) : null}</tbody> */}
-          {/* <tbody>
-              <Formtable data={users} />
-            </tbody>
+            <tbody>{users.length ? users.map(this.renderUser) : null}</tbody>
           </table> */}
           <Tableform users={users} />
         </div>

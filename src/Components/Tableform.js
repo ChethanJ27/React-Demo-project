@@ -1,4 +1,5 @@
 import React from "react"
+import * as ReactBootstrap from "react-bootstrap"
 
 function Tableform({ users }) {
   let renderUser = (user, index) => {
@@ -15,7 +16,7 @@ function Tableform({ users }) {
 
   return (
     <div className="table">
-      <table>
+      <ReactBootstrap.Table>
         <thead>
           <tr>
             <th>First Name</th>
@@ -25,7 +26,7 @@ function Tableform({ users }) {
           </tr>
         </thead>
         <tbody>{users.map(renderUser)}</tbody>
-      </table>
+      </ReactBootstrap.Table>
     </div>
   )
 }
