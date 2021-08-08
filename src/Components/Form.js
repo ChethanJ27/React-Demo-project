@@ -1,6 +1,20 @@
 import React, { Component } from "react"
-import "./styleform.css"
 import Tableform from "./Tableform"
+import Button from "@material-ui/core/Button"
+import SaveIcon from "@material-ui/icons/Save"
+import TextField from "@material-ui/core/TextField"
+import { Container, Paper, Typography } from "@material-ui/core"
+import "./styleform.css"
+import Grid from "@material-ui/core/Grid"
+import { withStyles } from "@material-ui/core/styles"
+import { createTheme, ThemeProvider } from "@material-ui/core/styles"
+import { orange } from "@material-ui/core/colors"
+
+const theme = createTheme({
+  palette: {
+    secondary: orange,
+  },
+})
 
 class Form extends Component {
   constructor(props) {
@@ -52,51 +66,125 @@ class Form extends Component {
   render() {
     // console.log(this.state.users)
     const { users } = this.state
+    const { classes } = this.props
     return (
-      <div>
-        <form onSubmit={this.handleSave}>
-          <div className="savebtn">
-            <button className="btn" type="submit">
-              Save
-            </button>
-          </div>
-          <div className="inputform">
-            <label>FirstName</label>
-            <input
-              type="text"
-              name="firstname"
-              placeholder="Enter FirstName"
-              value={this.state.firstname}
-              onChange={this.handleInputChange}
-            />
-            <label>LastName</label>
-            <input
-              type="text"
-              name="lastname"
-              placeholder="Enter LastName"
-              value={this.state.lastname}
-              onChange={this.handleInputChange}
-            />
-            <label>E-mail</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter Email-Id"
-              value={this.state.email}
-              onChange={this.handleInputChange}
-            />
-            <label>Date-Of-Birth</label>
-            <input
-              type="date"
-              name="dob"
-              placeholder="Enter Date Of Birth"
-              value={this.state.dob}
-              onChange={this.handleInputChange}
-            />
-          </div>
+      <Container className={classes.root}>
+        <form noValidate autoComplete="off" onSubmit={this.handleSave}>
+          <Paper className={classes.paper} elevation={3}>
+            <Grid
+              container
+              spacing={4}
+              justifyContent="flex-end"
+              className={classes.gridHead}
+            >
+              <Grid item>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  endIcon={<SaveIcon />}
+                >
+                  Save
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid container spacing={3} className={classes.gridHead}>
+              <Grid item xs={6}>
+                <TextField
+                  label="First Name"
+                  name="firstname"
+                  variant="outlined"
+                  required="true"
+                  size="small"
+                  fullWidth
+                  autoFocus="true"
+                  value={this.state.firstname}
+                  onChange={this.handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Last Name"
+                  name="lastname"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  required="true"
+                  value={this.state.lastname}
+                  onChange={this.handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Email-ID"
+                  name="email"
+                  fullWidth
+                  variant="outlined"
+                  size="small"
+                  required="true"
+                  value={this.state.email}
+                  onChange={this.handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  // label="Date Of Birth"
+                  type="Date"
+                  name="dob"
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  required="true"
+                  value={this.state.dob}
+                  onChange={this.handleInputChange}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
         </form>
-        <div className="table">
-          {/* <table>
+        <Paper className={classes.paperTable} elevation={3}>
+          <Grid
+            container
+            justifyContent="flex-start"
+            className={classes.gridHead}
+          >
+            <Grid item>
+              <Typography variant="h6" color="primary">
+                UserList
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <ThemeProvider theme={theme}>
+                <Tableform users={users} />
+              </ThemeProvider>
+            </Grid>
+          </Grid>
+        </Paper>
+      </Container>
+    )
+  }
+}
+
+const styles = (theme) => ({
+  gridHead: {
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  paper: {
+    marginTop: 5,
+    padding: 20,
+  },
+  paperTable: {
+    marginTop: 5,
+    padding: 20,
+    backgroundColor: "#eee",
+  },
+})
+
+export default withStyles(styles)(Form)
+
+{
+  /* <table>
             <thead>
               <tr>
                 <th>First Name</th>
@@ -106,12 +194,5 @@ class Form extends Component {
               </tr>
             </thead>
             <tbody>{users.length ? users.map(this.renderUser) : null}</tbody>
-          </table> */}
-          <Tableform users={users} />
-        </div>
-      </div>
-    )
-  }
+          </table> */
 }
-
-export default Form
